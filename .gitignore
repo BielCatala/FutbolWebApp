@@ -1,0 +1,31 @@
+# Logs de DataFlex
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*~
+
+# Archivos de compilacion
+*.exe
+*.obj
+*.o
+*.dep
+
+# Archivos locales y de depuracion
+*.dsk
+
+# Archivos temporales de Windows
+Thumbs.db
+Desktop.ini
+
+# Clave de cifrado de DataFlex
+AppSrc/LoginEncryptionKey.inc
+
+# Datos locales de DataFlex
+Data/*.dat
+Data/*.k[0-9]*
+
+# Archivos temporales de datos
+Data/*.lck
+Data/*.bak
