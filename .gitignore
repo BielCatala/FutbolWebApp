@@ -29,3 +29,12 @@ Data/*.k[0-9]*
 # Archivos temporales de datos
 Data/*.lck
 Data/*.bak
+
+# Archivos generados por DataFlex Studio 25
+*.x64.cch
+*.dbg
+*.prn
+*.exe.manifest
+
+# Archivos locales de configuracion web
+AppHtml/web.config
