@@ -154,7 +154,21 @@ Object oZoomEquipo is a cWebView
         Case End
 
         Send SetActionButtons
+        Send ActualizarTituloEquipo
 
     End_Procedure
+    
+    
+    Procedure ActualizarTituloEquipo
+        String sNombre
+
+        Get Field_Current_Value of oequipo_DD Field equipo.Nombre to sNombre
+
+        If (Trim(sNombre) <> "") Begin
+            Send SetBreadcrumbCaption (Trim(sNombre))
+            Send SetHeaderCaption ("Equipo: " + Trim(sNombre))
+        End
+    End_Procedure
+
 
 End_Object 
