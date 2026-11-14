@@ -170,7 +170,24 @@ Object oZoomJugador is a cWebView
         Case End
 
         Send SetActionButtons
+        Send ActualizarTituloJugador
 
     End_Procedure
+    
+    
+    Procedure ActualizarTituloJugador
+        String sNombre sApellido sTitulo
+
+        Get Field_Current_Value of ojugador_DD Field jugador.Nombre to sNombre
+        Get Field_Current_Value of ojugador_DD Field jugador.Apellido to sApellido
+
+        Move (Trim(sNombre) + " " + Trim(sApellido)) to sTitulo
+
+        If (Trim(sNombre) <> "") Begin
+            Send SetBreadcrumbCaption sTitulo
+            Send SetHeaderCaption ("Jugador: " + Trim(sNombre))
+        End
+    End_Procedure
+
 
 End_Object 
