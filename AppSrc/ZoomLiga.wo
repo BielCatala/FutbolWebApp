@@ -171,7 +171,21 @@ End_Object
         Case End
 
         Send SetActionButtons
+        Send ActualizarTituloLiga
 
     End_Procedure
+    
+    
+    Procedure ActualizarTituloLiga
+        String sNombre
+
+        Get Field_Current_Value of oliga_DD Field liga.Nombre to sNombre
+
+        If (Trim(sNombre) <> "") Begin
+            Send SetBreadcrumbCaption (Trim(sNombre))
+            Send SetHeaderCaption ("Liga: " + Trim(sNombre))
+        End
+    End_Procedure
+
 
 End_Object 
