@@ -183,7 +183,22 @@ Object oZoomEntrenador is a cWebView
         Case End
 
         Send SetActionButtons
+        Send ActualizarTituloEntrenador
 
+    End_Procedure
+    
+    Procedure ActualizarTituloEntrenador
+        String sNombre sApellido sTitulo
+
+        Get Field_Current_Value of oentrenador_DD Field entrenador.Nombre to sNombre
+        Get Field_Current_Value of oentrenador_DD Field entrenador.Apellido to sApellido
+
+        Move (Trim(sNombre) + " " + Trim(sApellido)) to sTitulo
+        
+       If (Trim(sNombre) <> "") Begin
+            Send SetBreadcrumbCaption sTitulo
+            Send SetHeaderCaption ("Entrenador: " + Trim(sNombre))
+       End
     End_Procedure
 
 End_Object 
