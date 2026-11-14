@@ -137,7 +137,21 @@ Object oZoomPosicion is a cWebView
         Case End
 
         Send SetActionButtons
+        Send ActualizarTituloPosicion
 
     End_Procedure
+    
+    
+    Procedure ActualizarTituloPosicion
+        String sNombre
+
+        Get Field_Current_Value of oposicion_DD Field posicion.Nombre to sNombre
+
+        If (Trim(sNombre) <> "") Begin
+            Send SetBreadcrumbCaption (Trim(sNombre))
+            Send SetHeaderCaption ("Posición: " + Trim(sNombre))
+        End
+    End_Procedure
+
 
 End_Object 
