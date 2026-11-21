@@ -18,6 +18,8 @@ Class cposicionDataDictionary is a DataDictionary
 
         Set Key_Field_State Field posicion.ID to True
 
+        Set Field_Option Field posicion.Nombre DD_NOENTER to True
+
     End_Procedure
 
 End_Class
