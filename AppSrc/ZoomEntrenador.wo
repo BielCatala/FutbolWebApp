@@ -83,6 +83,20 @@ Object oZoomEntrenador is a cWebView
                 Move True to NavigateData.bReadOnly
             End_Procedure
         End_Object
+        
+        
+        Object oBtnDespedir is a cWebButton
+            Set psCaption to "Despedir"
+            Set piColumnSpan to 4
+
+             Procedure OnClick
+                Set pbDespedirEntrenador of oentrenador_DD to True
+                Set Field_Changed_Value of oentrenador_DD Field entrenador.EquipoID to 0
+                Send Request_Save of oentrenador_DD
+                Set pbDespedirEntrenador of oentrenador_DD to False
+             End_Procedure
+    End_Object 
+        
      End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -117,6 +131,7 @@ Object oZoomEntrenador is a cWebView
             End_Procedure
 
         End_Object 
+        
 
         Object oCancelChangesBtn is a cWebMenuItem
             Set psCSSClass to "WebIcon_Refresh"

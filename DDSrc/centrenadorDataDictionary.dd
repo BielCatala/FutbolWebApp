@@ -6,6 +6,9 @@ Open equipo
 Class centrenadorDataDictionary is a DataDictionary
     
     Procedure Construct_Object
+        
+        Property Boolean pbDespedirEntrenador False
+
         Forward Send Construct_Object
         Set Main_File to entrenador.File_Number
 
@@ -24,6 +27,16 @@ Class centrenadorDataDictionary is a DataDictionary
         Set Field_Option Field entrenador.Apellido DD_NOENTER to True
         Set Field_Option Field entrenador.Apellido DD_REQUIRED to True
 
+    End_Procedure
+    
+    Procedure OnSaveRecord
+        If (pbDespedirEntrenador(Self)) Begin
+            Set_Attribute DF_FIELD_IS_NULL of entrenador.File_Number 5 to True
+        End
+
+        Forward Send OnSaveRecord
+        
+        Set pbDespedirEntrenador to False
     End_Procedure
 
 End_Class
