@@ -3,6 +3,10 @@
 Open entrenador
 Open equipo
 
+Object oNacionalidadValidation is a CodeValidationTable
+    Set Type_Value to "NAC"
+End_Object
+
 Class centrenadorDataDictionary is a DataDictionary
     
     Procedure Construct_Object
@@ -26,6 +30,8 @@ Class centrenadorDataDictionary is a DataDictionary
 
         Set Field_Option Field entrenador.Apellido DD_NOENTER to True
         Set Field_Option Field entrenador.Apellido DD_REQUIRED to True
+
+        Set Field_Value_Table Field entrenador.Nacionalidad to oNacionalidadValidation
 
     End_Procedure
     

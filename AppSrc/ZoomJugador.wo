@@ -7,6 +7,7 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
+Use cWebCombo.pkg
 Use cWebButton.pkg
 Use SelectPosicion.wo
 Use cWebView.pkg
@@ -58,6 +59,16 @@ Object oZoomJugador is a cWebView
             Set peLabelPosition to lpTop
             Set psLabel to "Apellido"
         End_Object 
+        
+        
+        Object ojugadorNacionalidad is a cWebCombo
+            Entry_Item jugador.Nacionalidad
+            Set piColumnSpan to 10
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Nacionalidad"
+        End_Object
+
        
        Object oBtnPosiciones is a cWebButton
             Set psCaption to "Ver posiciones"
