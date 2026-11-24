@@ -8,6 +8,7 @@ Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cWebButton.pkg
+Use cWebCombo.pkg
 Use ZoomLiga.wo
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -44,6 +45,21 @@ Object oZoomEquipo is a cWebView
             Set psLabel to "Nombre"
         End_Object 
         
+        Object oequipoLiga is a cWebCombo
+           Entry_Item equipo.LigaID
+            Set piColumnSpan to 12
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Liga"
+
+            Procedure OnFill
+                Forward Send OnFill
+
+                Send AddComboItem "1" "LaLiga"
+                Send AddComboItem "2" "Premier League"
+            End_Procedure
+        End_Object
+        
         Object oBtnLiga is a cWebButton
             Set psCaption to "Ver liga"
             Set piColumnSpan to 4
@@ -54,6 +70,9 @@ Object oZoomEquipo is a cWebView
                 Send NavigatePath
             End_Procedure
         End_Object
+        
+             
+        
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -126,8 +145,7 @@ Object oZoomEquipo is a cWebView
     End_Procedure
 
     Procedure OnViewSaved Handle hoServer Boolean bChanged
-        // Close after save
-        Send NavigateClose Self
+       Send NavigateClose Self
     End_Procedure
 
     // this will close the view after a delete
@@ -169,6 +187,6 @@ Object oZoomEquipo is a cWebView
             Send SetHeaderCaption ("Equipo: " + Trim(sNombre))
         End
     End_Procedure
-
+    
 
 End_Object 
