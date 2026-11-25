@@ -9,7 +9,7 @@ Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cWebCombo.pkg
 Use cWebButton.pkg
-Use SelectPosicion.wo
+Use SelectJugadorPosicion.wo
 Use cWebView.pkg
 
 Use cligaDataDictionary.dd
@@ -69,17 +69,25 @@ Object oZoomJugador is a cWebView
             Set psLabel to "Nacionalidad"
         End_Object
 
+        Object oJugadorPosiciones is a cWebForm
+            Set piColumnSpan to 10
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Posiciones"
+            Set pbReadOnly to True
+        End_Object
        
-       Object oBtnPosiciones is a cWebButton
-            Set psCaption to "Ver posiciones"
+        Object oBtnPosiciones is a cWebButton
+            Set psCaption to "Editar posiciones"
             Set piColumnSpan to 4
+            Set pbRender to False
 
-            WebRegisterPath ntNavigateForward oSelectPosicion
+            WebRegisterPath ntNavigateForward oSelectJugadorPosicion
 
             Procedure OnClick
                 Send NavigatePath
             End_Procedure
-        End_Object 
+        End_Object
         
     End_Object 
 
@@ -127,7 +135,7 @@ Object oZoomJugador is a cWebView
         End_Object 
     End_Object 
 
-    Procedure SetActionButtons
+   Procedure SetActionButtons
         tWebNavigateData NavigateData
         Boolean bHasRecord
         Handle hoDD
@@ -136,11 +144,11 @@ Object oZoomJugador is a cWebView
         Get GetNavigateData to NavigateData
         Get HasRecord of hoDD to bHasRecord
 
-        // let's hide all buttons and then Show the ones we want
         WebSet pbRender of oEditBtn to False
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
+        WebSet pbRender of oBtnPosiciones to False
 
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
@@ -149,6 +157,7 @@ Object oZoomJugador is a cWebView
             WebSet pbRender of oSaveBtn to True
             WebSet pbRender of oCancelChangesBtn to True
             WebSet pbRender of oDeleteBtn to bHasRecord
+            WebSet pbRender of oBtnPosiciones to bHasRecord
         End
     End_Procedure
 
@@ -182,6 +191,7 @@ Object oZoomJugador is a cWebView
 
         Send SetActionButtons
         Send ActualizarTituloJugador
+        Send ActualizarPosicionesJugador
 
     End_Procedure
     
@@ -199,6 +209,52 @@ Object oZoomJugador is a cWebView
             Send SetHeaderCaption ("Jugador: " + Trim(sNombre))
         End
     End_Procedure
+    
+    
+    Procedure ActualizarPosicionesJugador
+        Integer iJugadorID
+        String sPosiciones
+
+        Get Field_Current_Value of ojugador_DD Field jugador.ID to iJugadorID
+
+        Move "" to sPosiciones
+
+        If (iJugadorID > 0) Begin
+
+            Clear jugadorposicion
+            Move iJugadorID to jugadorposicion.JugadorID
+            Move 0 to jugadorposicion.PosicionID
+
+            Find GT jugadorposicion by Index.2
+
+            While (Found and jugadorposicion.JugadorID = iJugadorID)
+
+                Clear posicion
+                Move jugadorposicion.PosicionID to posicion.ID
+                Find EQ posicion by Index.1
+
+                If (Found) Begin
+                    If (sPosiciones <> "") Begin
+                        Move (sPosiciones + ", ") to sPosiciones
+                    End
+
+                    Move (sPosiciones + Trim(posicion.Nombre)) to sPosiciones
+                End
+
+                Find GT jugadorposicion by Index.2
+
+            Loop
+
+        End
+
+        If (sPosiciones = "") Begin
+            Move "Sin posiciones asignadas" to sPosiciones
+        End
+
+        WebSet psValue of oJugadorPosiciones to sPosiciones
+
+    End_Procedure
+
 
 
 End_Object 
